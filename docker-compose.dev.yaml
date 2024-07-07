@@ -1,0 +1,23 @@
+services:
+  nestjs-chat-api_dev:
+    environment:
+      - DATABASE_URL
+      - JWT_SECRET
+      - PORT
+      - RESEND_API_KEY
+      - FRONTEND_URL
+      - AWS_ACCESS_KEY
+      - AWS_SECRET
+      - AWS_BUCKET_NAME
+      - AWS_REGION
+      - STRIPE_SECRET_KEY
+      - STRIPE_WEBHOOK_SECRET
+
+
+    container_name: nestjs-chat-api_dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 8000:8000

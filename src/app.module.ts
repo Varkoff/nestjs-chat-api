@@ -4,6 +4,7 @@ import { AppGateway } from './app.gateway';
 import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { SocketModule } from './socket/socket.module';
+import { StripeModule } from './stripe/stripe.module';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -15,6 +16,7 @@ import { UserModule } from './user/user.module';
     AuthModule,
     ChatModule,
     SocketModule,
+    StripeModule,
   ],
   controllers: [],
   providers: [AppGateway],

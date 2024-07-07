@@ -245,6 +245,26 @@ export class ChatService {
             firstName: true,
             id: true,
             avatarFileKey: true,
+            receivedDonations: {
+              select: {
+                amount: true,
+                id: true,
+                createdAt: true,
+              },
+              where: {
+                givingUserId: existingUser.id,
+              },
+            },
+            givenDonations: {
+              select: {
+                amount: true,
+                id: true,
+                createdAt: true,
+              },
+              where: {
+                receivingUserId: existingUser.id,
+              },
+            },
           },
         },
         messages: {

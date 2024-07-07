@@ -2,9 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -12,35 +11,58 @@ generator client {
 }
 
 model User {
-  id       String      @id @default(cuid())
-  email     String   @unique
-  firstName String?
-  password String
+  id                  String  @id @default(cuid())
+  email               String  @unique
+  firstName           String?
+  password            String
   isResettingPassword Boolean @default(false)
-  resetPasswordToken String?  @unique
-  avatarFileKey String?  @unique
+  resetPasswordToken  String? @unique
+  avatarFileKey       String? @unique
 
-  conversations Conversation[]
-  sentMessages ChatMessage[]
+  conversations   Conversation[]
+  sentMessages    ChatMessage[]
+  stripeAccountId String?        @unique
+  stripeProductId String?        @unique
+
+  givenDonations    Donation[] @relation("givingUser")
+  receivedDonations Donation[] @relation("receivingUser")
 }
 
 model Conversation {
-  id       String      @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  users User[]
-  messages ChatMessage[]
+  id        String        @id @default(cuid())
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  users     User[]
+  messages  ChatMessage[]
 }
 
 model ChatMessage {
-  id       String      @id @default(cuid())
-  content     String
-  createdAt DateTime @default(now())
-  sender User @relation(fields: [senderId], references: [id])
-  senderId String
+  id           String       @id @default(cuid())
+  content      String
+  createdAt    DateTime     @default(now())
+  sender       User         @relation(fields: [senderId], references: [id])
+  senderId     String
   conversation Conversation @relation(fields: [chatId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  chatId String
+  chatId       String
 
   @@index([chatId])
   @@index([senderId])
+}
+
+model Donation {
+  id              String   @id @default(cuid())
+  createdAt       DateTime @default(now())
+  stripeProductId String
+  stripePriceId   String   @unique
+
+  givingUser   User   @relation("givingUser", fields: [givingUserId], references: [id])
+  givingUserId String
+
+  receivingUser   User   @relation("receivingUser", fields: [receivingUserId], references: [id])
+  receivingUserId String
+  // Amount is in cents
+  amount          Int?
+
+  @@index([givingUserId])
+  @@index([receivingUserId])
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { AwsS3Service } from 'src/aws/aws-s3.service';
 import { fileSchema } from 'src/file-utils';
 import { PrismaService } from 'src/prisma.service';
+import { StripeService } from 'src/stripe/stripe.service';
 import { z } from 'zod';
 
 @Injectable()
@@ -9,6 +10,7 @@ export class UserService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly awsS3Service: AwsS3Service,
+    private readonly stripe: StripeService,
   ) {}
   async getUsers() {
     const users = await this.prisma.user.findMany({
@@ -45,6 +47,7 @@ export class UserService {
         email: true,
         firstName: true,
         avatarFileKey: true,
+        stripeAccountId: true,
       },
     });
     let avatarUrl = '';
@@ -53,7 +56,14 @@ export class UserService {
         fileKey: user.avatarFileKey,
       });
     }
-    return { ...user, avatarUrl };
+    let canReceiveMoney = false;
+    if (user.stripeAccountId) {
+      const stripeAccountData = await this.stripe.getStripeAccount({
+        stripeAccountId: user.stripeAccountId,
+      });
+      canReceiveMoney = stripeAccountData.canReceiveMoney;
+    }
+    return { ...user, avatarUrl, canReceiveMoney };
   }
 
   async updateUser({

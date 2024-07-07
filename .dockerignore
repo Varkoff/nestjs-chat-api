@@ -1,0 +1,11 @@
+dist
+node_modules
+test
+.dockerignore
+.env
+.env.example
+.eslintrc.js
+.gitignore
+.prettierrc
+Dockerfile
+README.md

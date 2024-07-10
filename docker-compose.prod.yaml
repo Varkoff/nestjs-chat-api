@@ -1,5 +1,5 @@
 services:
-  nestjs-chat-api_dev:
+  nestjs-chat-api_production:
     environment:
       - DATABASE_URL
       - JWT_SECRET
@@ -14,7 +14,7 @@ services:
       - STRIPE_WEBHOOK_SECRET
 
 
-    container_name: nestjs-chat-api_dev
+    container_name: nestjs-chat-api_production
     # build:
     #   context: .
     #   dockerfile: Dockerfile

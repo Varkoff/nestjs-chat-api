@@ -15,7 +15,7 @@ export class MailerService {
   }) {
     try {
       const data = await this.mailer.emails.send({
-        from: 'Acme <onboarding@resend.dev>',
+        from: 'Virgile <virgile@chat.algomax.fr>',
         to: [recipient],
         subject: 'Bienvenue sur la plateforme',
         html: `Bonjour ${firstName}, et bienvenue sur NestJS Chat ! Nous sommes <strong>heureux</strong> de vous avoir parmi nous.`,

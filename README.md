@@ -1,3 +1,25 @@
+# Formation NestJS 2024 - Partie backend
+## Développe ton premier projet fullstack avec NestJS, Typescript, Remix, Docker | 
+
+NestJS est un puissant framework de NodeJS pour développer des serveurs API. Je vais t'apprendre tout ce que je sais faire avec, notamment :
+
+- Authentification
+- Communication temps réel (socket.io)
+- Héberger des fichiers (AWS S3)
+- Utiliser Stripe pour les paiements
+- Tâches automatisées (cronjob)
+- Envoi d'email
+- et plus encore.
+
+Repository : 
+- API https://github.com/Varkoff/nestjs-chat-api
+- FRONT https://github.com/Varkoff/nestjs-chat-front
+
+[![Développe ton premier projet fullstack avec NestJS, Typescript, Remix, Docker Formation NestJS 2024](https://i3.ytimg.com/vi/tJt2MoT_BpU/maxresdefault.jpg)](https://youtu.be/tJt2MoT_BpU)
+
+Accède à la formation gratuite 👉 [https://youtu.be/tJt2MoT_BpU](https://youtu.be/tJt2MoT_BpU)
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
